@@ -1,17 +1,17 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/1MhDjant23/chat-app.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Mohamed Ait Tajante",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/1MhDjant23/chat-app/issues"
@@ -20,6 +20,6 @@
   "description": "",
   "dependencies": {
     "express": "^5.2.1",
-    "ws": "^8.19.0"
+    "socket.io": "^4.8.3"
   }
 }
