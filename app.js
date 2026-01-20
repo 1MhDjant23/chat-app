@@ -9,7 +9,7 @@ import {
     getAllUsers,
     usernameExists
 }   from './data.js';
-import { timeStamp } from "node:console";
+// import { timeStamp } from "node:console";
 
 const   app = express();
 const   server = http.createServer(app);
@@ -36,10 +36,12 @@ io.on('connection', (socket) => {
     socket.on('userJoin', (username) => {
         if(usernameExists(username)) {
             socket.emit('error', 'Username already taken');
+            console.log('============');
             return;
         }
         addUser(socket.id, username);
         socket.username = username;
+
         console.log(username + ' joined the chat');
 
         socket.emit('welcome',{

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Chat App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>💬 Simple Chat</h1>
+      <p id="totalUsers">Users: 0</p>
+    </header>
+
+    <!-- Main Chat Area -->
+    <main class="chat-container">
+      <!-- Users List (Sidebar) -->
+      <aside class="users-sidebar">
+        <h3>Online Users</h3>
+        <div id="usersList" class="users-list">
+          <p class="no-users">No users online</p>
+        </div>
+      </aside>
+
+      <!-- Chat Section -->
+      <section class="chat-section">
+        <!-- Join Form (shown initially) -->
+        <div id="joinForm" class="join-form">
+          <h2>Join Chat</h2>
+          <form onsubmit="joinChat(event)">
+            <input 
+              type="text" 
+              id="usernameInput" 
+              placeholder="Enter your username" 
+              required
+              maxlength="20"
+            >
+            <button type="submit">Join Chat</button>
+          </form>
+          <p id="joinError" class="error"></p>
+        </div>
+
+        <!-- Chat Area (shown after join) -->
+        <div id="chatArea" class="chat-area" style="display: none;">
+          <!-- Messages Display -->
+          <div id="messagesContainer" class="messages-container">
+            <!-- Messages will appear here -->
+          </div>
+
+          <!-- Message Input -->
+          <div class="message-input-area">
+            <form onsubmit="sendMessage(event)">
+              <input 
+                type="text" 
+                id="messageInput" 
+                placeholder="Type a message..." 
+                autocomplete="off"
+              >
+              <button type="submit">Send</button>
+            </form>
+            <p id="messageError" class="error"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Socket.io Client Library -->
+  <script src="/socket.io/socket.io.js"></script>
+  
+  <!-- Custom Client Script -->
+  <script src="../public/js/client.js"></script>
+</body>
+</html>
