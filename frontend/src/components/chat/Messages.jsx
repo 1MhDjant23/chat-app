@@ -8,6 +8,7 @@ export const Messages = ({ uid }) => {
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isTyping, setIsTyping] = useState(null);
 
     const   toLastMessage = useRef(null);
 
@@ -34,17 +35,32 @@ export const Messages = ({ uid }) => {
             setHistory(prev => [...prev, message]);
         };
 
+        
         socket.on('receive-message', handleNewMessage);
-
+        
         return () => {
             socket.off('receive-message', handleNewMessage);
         };
-
+        
     }, [uid]);
 
     useEffect(() => {
+        const   handleTypingIndicator = (mess) => {
+            setIsTyping(mess);
+        }
+        socket.on('typing', handleTypingIndicator);
+        socket.on('typing:off', () => setIsTyping(null))
+        
+        return () => {
+            socket.off('typing');
+            socket.off('typing:off');
+        }
+
+    }, [isTyping])
+
+    useEffect(() => {
         toLastMessage.current?.scrollIntoView({ behavior: 'smooth' })
-    }, [history]);
+    }, [history, isTyping]);
 
 
     if (loading)
@@ -67,13 +83,25 @@ export const Messages = ({ uid }) => {
                                     {messg.content}
                                 </h2>
                             </div>
-                            <div ref={toLastMessage}/>
                         </Fragment>
                     );
                 })
             ) :
-                (<div className="chat-empty"><h3>No messages yet. Say Hello!</h3></div>)
+            (<div className="chat-empty"><h3>No messages yet. Say Hello!</h3></div>)
+        }
+            {
+                isTyping ? 
+                <div className="typing-indicator">
+                    <span>{isTyping}</span>
+                    <span className="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    </div>
+                : '' 
             }
+        <div ref={toLastMessage}/>
         </section>
     );
 }

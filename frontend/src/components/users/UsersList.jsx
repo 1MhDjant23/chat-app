@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { usersApi } from "../../api/auth.api.js";
+import  { MdLogout }  from    'react-icons/md';
 import '../public/css/usersList.css';
+import { Link, Navigate } from 'react-router-dom';
+// import {}
 // import { useNavigate } from "react-router-dom";
 
 
@@ -10,6 +13,10 @@ export const UsersList = ({ setUserActive }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const   handleLogout = () => {
+        localStorage.removeItem('token');
+        return <Navigate to={'/login'}/>
+    }
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -61,6 +68,17 @@ export const UsersList = ({ setUserActive }) => {
                     ) : <span className="empty">No Users availlable</span>
                 }
             </section>
+            <div className="logout-section">
+                <button
+                    onClick={() => {
+                        {console.log('logpout')}
+                        
+                        // <Link to={'/login'}/>
+                        // <Navigate to={'/logi+n'}/>
+                    }}
+                    className="logout-btn"><MdLogout className="logout-icon"/>
+                </button>
+            </div>
         </div >
     );
 }

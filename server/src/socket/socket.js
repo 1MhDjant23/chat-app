@@ -37,6 +37,16 @@ export const setupSocket = (io) => {
             console.log('i get messsage');
         });
 
+        socket.on('status:typing:start', (receiverId) => {
+            const   roomId = 'room_' + [receiverId, socket.user.userId].sort().join('_');
+
+            socket.to(roomId).emit('typing', `${socket.user.username} is typing`);
+            console.log('user typing......');
+        })
+        socket.on('status:typing:stop', (receiverId) => {
+            const   roomId = 'room_' + [receiverId, socket.user.userId].sort().join('_');
+            socket.to(roomId).emit('typing:off', null);
+        })
 
 
         socket.on('disconnect', () => {

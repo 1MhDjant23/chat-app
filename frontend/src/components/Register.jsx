@@ -1,22 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import  { registerApi } from '../api/auth.api.js';
 import { Link, useNavigate } from "react-router-dom";
 import { FiUser, FiLock } from "react-icons/fi";
 import Logo from    './public/assets/logo.svg';
+import  { toast }   from 'react-toastify';
 import  './public/css/register.css';
 
 export  const   Register = () => {
     const   [username, setUsername] = useState('');
     const   [password, setPassword] = useState('');
+    const   [error, setError] = useState(null);
+
     const   navigate = useNavigate();
+
+    useEffect(() => {
+        if(error) {
+            toast.error(error.message);
+            setError(null);
+        }
+    }, [error])
 
     const   handleSubmit = async (e) => {
         e.preventDefault();
         if (username.trim() === '' || password.trim() === '') {
-            alert('Enter valid credentials');
             return ;
         }
-
         try {
             const   response = await registerApi(
                 {
@@ -24,7 +32,7 @@ export  const   Register = () => {
                     password: password
                 }
             );
-            alert(response.message);
+            // toast.done(response.message);
             navigate('/login', {
                 state: {
                     message: 'Account created. Please login'
@@ -32,7 +40,7 @@ export  const   Register = () => {
             });
         } catch (error) {
             console.log('register fail:', error.message);
-            alert(error.message || 'Register Fail');
+            setError(error);
         }
     }
 

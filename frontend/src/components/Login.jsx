@@ -2,24 +2,35 @@ import { Link, useLocation } from 'react-router-dom';
 import  {loginApi} from '../api/auth.api.js';
 import { useEffect, useState } from "react";
 import { FiUser, FiLock } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import "./public/css/login.css";
 import Logo from "./public/assets/logo.svg";
 
 export  function    Login({ setToken }) {
     const   [username, setUsername] = useState('');
     const   [password, setPassword] = useState('');
+    const   [error, setError] = useState(null);
 
     const   location = useLocation();
 
     useEffect(() => {
-        if (location.state?.message)
-            alert(location.state.message);
+        if (location.state?.message) {
+            toast.success(location.state.message);
+            location.state = null;
+        }
     }, [location])
+
+    useEffect(() => {
+        if(error) {
+            toast.error(error.message);
+            setError(null);
+        }
+
+    }, [error])
 
     const   handleSubmit = async (e) => {
         e.preventDefault();
         if(username.trim() === '' || password.trim() === ''){
-            alert('Enter valid credentials');
             return ;
         }
         try {
@@ -29,11 +40,11 @@ export  function    Login({ setToken }) {
             });
             localStorage.setItem('token', response.token);
             setToken(response.token);
-            alert(`${response.message} | ${response.user.username}`);
+            toast.success(`${response.message} | ${response.user.username}`)
 
         } catch (error) {
             console.log('Login error:', error.message);
-            alert(error.message || 'Login failed');
+            setError(error);
         }
     };
 

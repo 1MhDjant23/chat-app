@@ -26,7 +26,13 @@
     
     /* Status */
     --online: #22c55e;
+    --danger: rgb(197, 34, 34);
     
+    /* Typing Indicator */
+    --bg-dots: #6b7280;
+    --bg-typing-indic: #1f2933;
+    --typing-indic: #9ca3af;
+
     /* Typography */
     --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }

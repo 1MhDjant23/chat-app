@@ -102,3 +102,44 @@
     text-align: center;
     color: var(--text-secondary);
 }
+
+
+/* Logout sect*/
+
+.logout-section {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    padding: 10px;
+    background-color: var(--bg-sidebar);
+    border: none;
+}
+
+.logout-btn {
+    width: 40%;
+    height: 40%;
+    max-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid var(--bg-sidebar);
+    background-color: var(--bg-sidebar);
+    cursor: pointer;
+    user-select: none;
+}
+
+.logout-icon {
+    font-size: 30px;
+    color: var(--text-secondary);
+    line-height: 1;
+    transition: color .12s ease, transform .20s ease;
+}
+
+.logout-icon:hover {
+    color: var(--danger);
+    transform: scale(1.1);
+
+}

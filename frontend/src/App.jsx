@@ -6,6 +6,7 @@ import { PrivateRoute, PublicRoutes } from './routes/ProtectRoutes.jsx';
 import { Chat } from './components/Chat.jsx';
 import  './components/public/css/Variables.css';
 import { ChatLayout } from './components/layout/ChatLayout.jsx';
+import  { ToastContainer }  from  'react-toastify';
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer/>
     </BrowserRouter>
   )
 }
