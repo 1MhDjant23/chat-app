@@ -1,67 +1,104 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .users-list-container {
-    width: 250px;
-    min-width: 250px;
-    max-width: 250px;
-    height: 100vh;
+    width: 320px;
+    height: 100%;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    background-color: #f7f7f7;
-    border-right: 1px solid #ddd;
-
 }
 
 .users-list-container h1 {
-  margin: 0;
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 600;
-  border-bottom: 1px solid #ddd;
-  background-color: #ffffff;
-}
-
-
-.user-list{
-    flex: 1;
-    overflow-y: auto;
-}
-
-
-.user-list ul {
-    list-style: none;
-    padding: 0;
+    padding: 24px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border);
+    background-color: var(--bg-sidebar);
+    letter-spacing: -0.025em;
     margin: 0;
 }
 
-.user-list  li {
+.user-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.user-list ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-list li {
     padding: 12px 16px;
+    border-radius: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    transition: backgroun-color 0.2s ease;
+    gap: 12px;
+    transition: all 0.2s ease;
 }
 
 .user-list li:hover {
-    background-color: #eaeaea;
+    background-color: var(--bg-element);
+    transform: translateY(-1px);
 }
 
-.user-list li span {
-    font-size: 14px;
-    color: #333;
+.user-list li.active {
+    background-color: var(--primary);
 }
 
-.users-loading {
-    text-align: center;
-    padding: 20px;
-    color: #666;
+.user-list li.active span {
+    color: white;
 }
 
+/* Avatar Placeholder (Circle) */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-element);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+}
+
+.user-list li:hover .user-avatar {
+    background-color: var(--bg-sidebar);
+}
+
+.user-list li.active .user-avatar {
+    background-color: white;
+    color: var(--primary);
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.user-status {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.users-loading,
 .user-list .empty {
-    padding: 16px;
-    color: #777;
+    padding: 24px;
     text-align: center;
+    color: var(--text-secondary);
 }

@@ -1,13 +1,39 @@
-:root { 
-    --bg-1:#eef2ff;
-    --bg-2:#f8fafc;
-    --primary:#4f46e5;
-    --accent:#06b6d4;
-    --card:#ffffff;
-    --muted:#6b7280;
-    --danger:#dc2626;
+:root {
+    /* Backgrounds */
+    --bg-main: #0f172a;
+    --bg-sidebar: #1e293b;
+    --bg-element: #334155;
+    --bg-chat: #0f172a;
+    
+    /* Text */
+    --text-main: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    /* Brand */
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-glow: rgba(99, 102, 241, 0.3);
+    
+    /* Borders */
+    --border: #334155;
+    
+    /* Chat Bubbles */
+    --bubble-me: #4f46e5;
+    --bubble-me-text: #ffffff;
+    --bubble-other: #1e293b;
+    --bubble-other-text: #f1f5f9;
+    
+    /* Status */
+    --online: #22c55e;
+    
+    /* Typography */
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-html, body,#root { 
+html, body, #root {
     height: 100%;
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-main);
 }

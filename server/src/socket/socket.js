@@ -19,7 +19,7 @@ export const setupSocket = (io) => {
             const roomId = 'room_' + [receiverId, socket.user.userId].sort().join('_');
             console.log("Room Id", roomId);
             socket.join(roomId);
-            // socket.emit('joined', );
+            io.in(roomId).emit('joined', `Welcome ${socket.user.username} & ${receiver.username} in that Private Chat`);
             console.log(`User ${socket.user.username} join the chat with ${receiver.username}`);
         });
 
@@ -34,7 +34,7 @@ export const setupSocket = (io) => {
             };
             saveMessage(message); // save to DB
             io.in(roomId).emit('receive-message', message);
-            console.log('iget messsage');
+            console.log('i get messsage');
         });
 
 

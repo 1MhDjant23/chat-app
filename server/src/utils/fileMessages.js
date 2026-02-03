@@ -12,8 +12,8 @@ export  const   readMessages = () => {
 
 
 
-export const  saveMessage = (messages) => {
+export const  saveMessage = (message) => {
     const mess = readMessages();
-    mess.push(messages);
+    mess.push(message);
     fs.writeFileSync(filePath, JSON.stringify(mess, null, 2));
 }

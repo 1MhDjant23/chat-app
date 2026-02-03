@@ -1,21 +1,24 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { getHistory } from "../../api/getHistory.js";
+import { socket } from "../../socket/socket.js";
 import '../public/css/messages.css';
 
-export  const   Messages = ({uid}) => {
+export const Messages = ({ uid }) => {
 
-    const   [history, setHistory] = useState([]);
-    const   [loading, setLoading] = useState(true);
-    const   [error, setError] = useState(null);
+    const [history, setHistory] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const   toLastMessage = useRef(null);
 
     useEffect(() => {
-        if(!uid)
+        if (!uid)
             return;
-        const   getChatHistory = async () => {
+        const getChatHistory = async () => {
             try {
                 setLoading(true);
                 setError(null)
-                const   chatHistory = await getHistory(uid);
+                const chatHistory = await getHistory(uid);
                 setHistory(chatHistory);
 
             } catch (error) {
@@ -26,33 +29,51 @@ export  const   Messages = ({uid}) => {
         }
         getChatHistory();
 
+        // Listen for new messages
+        const handleNewMessage = (message) => {
+            setHistory(prev => [...prev, message]);
+        };
+
+        socket.on('receive-message', handleNewMessage);
+
+        return () => {
+            socket.off('receive-message', handleNewMessage);
+        };
+
     }, [uid]);
 
-    if(loading)
+    useEffect(() => {
+        toLastMessage.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [history]);
+
+
+    if (loading)
         return (<div className="history-loading">Loading conversation...</div>);
-    if (error) 
-        return <div>{error.message}</div>
+    if (error)
+        return <div className="history-loading">Error: {error.message}</div>
 
 
     return (
-        <div className="chat-window-container">
-            <section className="chat-window">
-                {history.length > 0 ? (
-                    history.map(messg => (
+        <section className="chat-window">
+            {history.length > 0 ? (
+                history.map(messg => {
+                    // Determine if message was sent by current user
+                    const isSent = messg.to === uid;
+
+                    return (
                         <Fragment key={messg.id}>
-                            <div className="messg-block">
-                                <span>{messg.from}</span>
-                                <span>{messg.to}</span>
+                            <div className={`messg-block ${isSent ? 'sent' : 'received'}`}>
                                 <h2>
                                     {messg.content}
                                 </h2>
                             </div>
+                            <div ref={toLastMessage}/>
                         </Fragment>
-                    ))
-                ) : (<h3>No messages yet. Say Hello!</h3>)
-                }
-            </section>
-
-        </div>
+                    );
+                })
+            ) :
+                (<div className="chat-empty"><h3>No messages yet. Say Hello!</h3></div>)
+            }
+        </section>
     );
 }

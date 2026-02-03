@@ -4,56 +4,63 @@ import '../public/css/usersList.css';
 // import { useNavigate } from "react-router-dom";
 
 
-export  const   UsersList = ({setUserActive}) => {
+export const UsersList = ({ setUserActive }) => {
 
-    const   [users, setUsers] = useState([]);
-    const   [loading, setLoading] = useState(true);
-    const   [error, setError] = useState(null);
-    // const   navigateTo = useNavigate();
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
 
     useEffect(() => {
-        const   fetchUsers = async () => {
+        const fetchUsers = async () => {
             setError(null);
             setLoading(true);
             try {
-                const   allUsers = await usersApi();
+                const allUsers = await usersApi();
                 setUsers(allUsers);
             } catch (error) {
                 setError(error || 'Something went wrong.');
                 console.log('fetch users error:', error);
-            } finally{
+            } finally {
                 setLoading(false);
             }
         }
-       fetchUsers();
+        fetchUsers();
     }, []);
 
-    if(loading)
+    if (loading)
         return <div className="users-loading">Users Loading...</div>
-    if(error)
+    if (error)
         return <div>Error: {error.message}</div>
 
     return (
         <div className="users-list-container">
             <h1>Messages</h1>
-            <section className="user-list"> 
+            <section className="user-list">
                 {
                     users.length > 0 ? (
-                    <ul>
-                        {users.map((u) => (
-                            <li
-                                // className={activeUser?.id === u.id ? 'active' : ''}
-                                key={u.id}
-                                onClick={() => setUserActive(u)}
-                            >
-                                <span>{u.username}</span>
-                            </li>
-                        ))}
-                    </ul>
+                        <ul>
+                            {
+                                users.map((u) => (
+                                    <li
+                                        // className={activeUser?.id === u.id ? 'active' : ''}
+                                        key={u.id}
+                                        onClick={() => setUserActive(u)}
+                                    >
+                                        <div className="user-avatar">
+                                            {u.username.charAt(0).toUpperCase()}
+                                        </div>
+                                        <div className="user-info">
+                                            <span className="user-name">{u.username}</span>
+                                            <span className="user-status">Online</span>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     ) : <span className="empty">No Users availlable</span>
                 }
             </section>
-        </div>
+        </div >
     );
 }

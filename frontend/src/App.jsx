@@ -2,7 +2,6 @@ import  { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useState } from 'react'
 import {Login} from './components/Login.jsx';
 import  {Register} from './components/Register.jsx';
-// import { UsersList } from './components/users/UsersList.jsx';
 import { PrivateRoute, PublicRoutes } from './routes/ProtectRoutes.jsx';
 import { Chat } from './components/Chat.jsx';
 import  './components/public/css/Variables.css';
