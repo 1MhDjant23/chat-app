@@ -20,7 +20,7 @@ function App() {
           path='/'
           element={
             <PrivateRoute token={token}>
-              <ChatLayout/>
+              <ChatLayout setToken={setToken} />
             </PrivateRoute>
           }
           />

@@ -4,7 +4,7 @@ import { ChatWindow } from "../chat/ChatWindow.jsx";
 import  { socket }  from '../../socket/socket.js';
 import  "../public/css/chatLayout.css"
 
-export  const   ChatLayout = () => {
+export  const   ChatLayout = ({ setToken }) => {
     const   [userActive, setUserActive] = useState(null);
     
     useEffect(() => {
@@ -27,7 +27,7 @@ export  const   ChatLayout = () => {
 
     return (
         <div className="chat-layout-container">
-                <UsersList setUserActive={setUserActive} />
+                <UsersList setUserActive={setUserActive} setToken={setToken} />
             
                 {
                     userActive ? <ChatWindow user={userActive} /> 

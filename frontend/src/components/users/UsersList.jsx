@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { usersApi } from "../../api/auth.api.js";
 import  { MdLogout }  from    'react-icons/md';
 import '../public/css/usersList.css';
-import { Link, Navigate } from 'react-router-dom';
-// import {}
-// import { useNavigate } from "react-router-dom";
+import  { useNavigate } from 'react-router-dom';
 
-
-export const UsersList = ({ setUserActive }) => {
+export const UsersList = ({ setUserActive, setToken }) => {
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    let   navigate = useNavigate();
+
     const   handleLogout = () => {
         localStorage.removeItem('token');
-        return <Navigate to={'/login'}/>
+        setToken(null);
+        navigate('/login');
     }
 
     useEffect(() => {
@@ -50,7 +50,6 @@ export const UsersList = ({ setUserActive }) => {
                             {
                                 users.map((u) => (
                                     <li
-                                        // className={activeUser?.id === u.id ? 'active' : ''}
                                         key={u.id}
                                         onClick={() => setUserActive(u)}
                                     >
@@ -70,13 +69,9 @@ export const UsersList = ({ setUserActive }) => {
             </section>
             <div className="logout-section">
                 <button
-                    onClick={() => {
-                        {console.log('logpout')}
-                        
-                        // <Link to={'/login'}/>
-                        // <Navigate to={'/logi+n'}/>
-                    }}
-                    className="logout-btn"><MdLogout className="logout-icon"/>
+                    className="logout-btn"
+                    onClick={handleLogout}>
+                        <MdLogout className="logout-icon"/>
                 </button>
             </div>
         </div >
