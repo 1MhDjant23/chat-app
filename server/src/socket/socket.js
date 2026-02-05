@@ -14,7 +14,7 @@ export const setupSocket = (io) => {
 
         socket.on('join-private-chat', (receiverId) => {
             const receiver = getUserById(receiverId);
-        
+
             console.log(`join chat: (me),${socket.user.username} with ${receiver.username}`);
             const roomId = 'room_' + [receiverId, socket.user.userId].sort().join('_');
             console.log("Room Id", roomId);
@@ -33,6 +33,7 @@ export const setupSocket = (io) => {
                 content: data.content
             };
             saveMessage(message); // save to DB
+            io.emit()
             io.in(roomId).emit('receive-message', message);
             console.log('i get messsage');
         });
