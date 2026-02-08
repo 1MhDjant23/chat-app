@@ -72,64 +72,49 @@
 .chat-window::-webkit-scrollbar-thumb:hover {
     background: var(--border);
 }
-
-/* Message Block */
+/*messages block */
 .messg-block {
-    max-width: 65%;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    animation: slideIn 0.2s ease-out;
+    max-width: 65%;
+    margin-bottom: 8px;
+    word-wrap: break-word;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.message-content {
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
 }
 
+/* Sent messages (right side, blue) */
 .messg-block.sent {
     align-self: flex-end;
 }
 
+.messg-block.sent .message-content {
+    background: linear-gradient(135deg, var(--bubble-me), var(--primary-hover));
+    color: var(--bubble-me-text);
+    border-bottom-right-radius: 4px;
+}
+
+/* Received messages (left side, gray) */
 .messg-block.received {
     align-self: flex-start;
 }
 
-.messg-block span {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    padding: 0 12px;
-}
-
-.messg-block h2 {
-    margin: 0;
-    padding: 12px 16px;
-    font-size: 0.95rem;
-    font-weight: 400;
-    line-height: 1.5;
-    border-radius: 16px;
-    word-wrap: break-word;
-}
-
-.messg-block.sent h2 {
-    background: linear-gradient(135deg, var(--bubble-me), var(--primary-hover));
-    color: var(--bubble-me-text);
-    border-bottom-right-radius: 4px;
-    box-shadow: 0 2px 8px var(--primary-glow);
-}
-
-.messg-block.received h2 {
+.messg-block.received .message-content {
     background-color: var(--bubble-other);
     color: var(--bubble-other-text);
     border-bottom-left-radius: 4px;
-    border: 1px solid var(--border);
+}
+.message-time {
+    padding-left: 8px;
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+    align-self: flex-end; /* This pushes it to the right */
 }
 
 /* Loading & Empty States */

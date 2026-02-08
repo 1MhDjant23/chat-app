@@ -1,5 +1,4 @@
 import { getMessagesBetweenUsers, saveMessage } from "../db/dbAccessLayers/messages.js";
-// import { readMessages, saveMessage } from "../utils/fileMessages.js";
 
 export const   getMessages = async (req, res) => {
     const   userId = req.params.userId;
@@ -12,21 +11,12 @@ export const   getMessages = async (req, res) => {
         console.log("Error getting messages:", error);
         res.status(500).json({error: error.message});
     }
-
-    // const   messages = readMessages();
-    // const   chat = messages.filter(m => 
-    //     (m.from === userId && m.to === me) ||
-    //     (m.from === me && m.to === userId));
-        
-    //     console.log('i get it');
-    //    console.log('=================');
-    // res.json(chat);
 }
 
 
 export  const   sendMessage = async (req, res) => {
-    const   userAId = req.user.userId;
-    const   {otherId, content} = req.body;
+    const   userAId = req.user.id;
+    const   { otherId, content } = req.body;
     try {
         if (!otherId || !content || otherId.trim() === '' || content.trim() === '' || !isNaN(otherId)) {
             return res.status(401).json({error: 'Invalid'});

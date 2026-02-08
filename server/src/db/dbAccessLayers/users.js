@@ -8,6 +8,13 @@ export  const   findUserByUsername = async (username) => {
     return res.rows[0];
 }
 
+export  const   findUserById = async (uid) => {
+    const   res = await qwery(
+        "SELECT id, username, created_at FROM users WHERE id = $1",
+        [uid]);
+    return res.rows[0];
+}
+
 export  const   getUsersExceptMe = async (uid) => {
     const   res = await qwery(
         "SELECT id, username, created_at FROM users WHERE id != $1 ORDER BY username",

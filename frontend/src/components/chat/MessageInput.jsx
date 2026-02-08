@@ -39,10 +39,10 @@ export const MessageInput = ({ uid }) => {
                         type="text"
                         value={input}
                         placeholder="Type a message..."
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter")
-                                e.preventDefault();
-                        }}
+                        // onKeyDown={(e) => {
+                        //     if (e.key === "Enter")
+                        //         e.preventDefault();
+                        // }}
                     />
                     <button 
                         disabled={input.trim() === '' ? true : false}

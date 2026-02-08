@@ -23,6 +23,7 @@ export const Messages = ({ uid }) => {
                 setHistory(chatHistory);
 
             } catch (error) {
+                console.log("error loading history:", error);
                 setError(error)
             } finally {
                 setLoading(false);
@@ -32,6 +33,7 @@ export const Messages = ({ uid }) => {
 
         // Listen for new messages
         const handleNewMessage = (message) => {
+            console.log("New Message:", message);
             setHistory(prev => [...prev, message]);
         };
 
@@ -74,14 +76,18 @@ export const Messages = ({ uid }) => {
             {history.length > 0 ? (
                 history.map(messg => {
                     // Determine if message was sent by current user
-                    const isSent = messg.to === uid;
+                    const isSent = messg.receiver_id === uid;
 
                     return (
                         <Fragment key={messg.id}>
                             <div className={`messg-block ${isSent ? 'sent' : 'received'}`}>
-                                <h2>
+                                <div className="message-content">
                                     {messg.content}
-                                </h2>
+                                    <span className="message-time">
+                                        {new Date(messg.created_at).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: 'true' })}
+                                    </span>
+
+                                </div>
                             </div>
                         </Fragment>
                     );
