@@ -1,49 +1,36 @@
-import  { readUsers, addUser }  from    '../utils/fileDB.js';
-import  bcrypt  from    'bcrypt';
-import jwt from 'jsonwebtoken';
+import  bcrypt                  from    'bcrypt';
+import  jwt                     from    'jsonwebtoken';
+import { createUser, findUserByUsername } from '../db/dbAccessLayers/users.js';
 
-
-export  const   register = (req, res, next) => {
+export  const   register = async (req, res, next) => {
 
     try {
         const   {username, password} = req.body;
-    
 
         if (!username || !password || username.trim() === '' || password.trim() === '') {
             return res.status(400).json({error: 'All fields are required'});
         }
-        const   users = readUsers();
-        const   isUserExist = users.find( user => user.username === username );
 
-        if(isUserExist)
-            return res.status(400).json({error: 'usernam already exist!'});
+        const   isUserExist = await findUserByUsername(username);
+        if (isUserExist)
+            return res.status(409).json({ error: "Username already used" });
 
-        const   hashed = bcrypt.hashSync(password, 10);
-
-        const   newUser = {
-            id: new Date(),
-            username: username,
-            password: hashed
-        };
-
-        users.push(newUser);
-        addUser(users);
+        const   hashed = await bcrypt.hash(password, 10);
+        const   user_data = await createUser(username, hashed);
 
         res.status(201).json({
             message: 'User registred successfully',
-            user: {
-                id: newUser.id,
-                username: newUser.username
-            }
+            user: user_data
         });
         next();
+
     } catch (error) {
         res.status(500).json({error: error.message});
     }
 }
 
 
-export const   loginUser = (req, res) => {
+export const   loginUser = async (req, res) => {
 
     try {
         
@@ -52,31 +39,31 @@ export const   loginUser = (req, res) => {
         if (!username || !password || username.trim() === ''
         || password.trim() === '') return res.status(400).json({error: 'username and password are required'});
         
-        const   users = readUsers();
-        
-        const   userExist = users.find( user => user.username === username );
-        
-        if (!userExist) {
-            console.log(" User !!!!!");
-            return res.status(401).json({error: 'Unauthorized'});
+        const   isUserExist = await findUserByUsername(username);
+        if(!isUserExist){
+            console.log("Invalid username");
+            return res.status(401).json({error: 'Invalid credentials'});
         }
         
-        const   isMatch =  bcrypt.compareSync(password, userExist.password);
+        
+        const   isMatch = await bcrypt.compare(password, isUserExist.hash_password);
         if (!isMatch) {
-            console.log("password !!!!!");
-            return res.status(401).json({error: 'Unauthorized'});
+            console.log("Incorrect password!");
+            return res.status(401).json({error: 'Invalid credentials'});
         }
-        
-        const   token = jwt.sign({userId: userExist.id, username: userExist.username}, process.env.SECRET_KEY);
-        
+
+        const   token = jwt.sign({id: isUserExist.id, username: isUserExist.username}, process.env.SECRET_KEY);
+
         res.status(200).json({
             message: 'Login success',
             token,
             user: {
-                username: userExist.username
+                id: isUserExist.id,
+                username: isUserExist.username
             }
         });
     } catch (error) {
+        console.log("Login failled:", error);
         res.status(500).json({error: error.message});
     }        
 }

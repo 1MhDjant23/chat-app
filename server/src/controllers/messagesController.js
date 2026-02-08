@@ -1,35 +1,43 @@
-import { readMessages, saveMessage } from "../utils/fileMessages.js";
+import { getMessagesBetweenUsers, saveMessage } from "../db/dbAccessLayers/messages.js";
+// import { readMessages, saveMessage } from "../utils/fileMessages.js";
 
-export const   getMessages = (req, res) => {
+export const   getMessages = async (req, res) => {
     const   userId = req.params.userId;
-    const   me = req.user.userId;
+    const   otherUserId = req.user.id;
     
-    const   messages = readMessages();
-    const   chat = messages.filter(m => 
-        (m.from === userId && m.to === me) ||
-        (m.from === me && m.to === userId));
+    try {
+        const   messages = await getMessagesBetweenUsers(userId, otherUserId);
+        res.json(messages);
+    } catch (error) {
+        console.log("Error getting messages:", error);
+        res.status(500).json({error: error.message});
+    }
+
+    // const   messages = readMessages();
+    // const   chat = messages.filter(m => 
+    //     (m.from === userId && m.to === me) ||
+    //     (m.from === me && m.to === userId));
         
-        console.log('i get it');
-       console.log('=================');
-    res.json(chat);
+    //     console.log('i get it');
+    //    console.log('=================');
+    // res.json(chat);
 }
 
 
-export  const   sendMessage = (req, res) => {
-    const   me = req.user.userId;
+export  const   sendMessage = async (req, res) => {
+    const   userAId = req.user.userId;
     const   {otherId, content} = req.body;
+    try {
+        if (!otherId || !content || otherId.trim() === '' || content.trim() === '' || !isNaN(otherId)) {
+            return res.status(401).json({error: 'Invalid'});
+        }
+    
+        const   newMessage = await saveMessage(userAId, otherId, content);
 
-    if (!otherId || !content || otherId.trim() === '' || content.trim() === '') {
-        return res.status(401).json({error: 'Invalid'});
+        return res.status(201).json(newMessage);
+        
+    } catch (error) {
+        console.log('error save message:', error);
+        res.status(500).json({error: error.message});
     }
-    const   messages = readMessages();
-    const   newMessage = {
-        id: new Date(),
-        from: me,
-        to: otherId,
-        content: content
-    };
-    messages.push(newMessage);
-    saveMessage(messages);
-    return res.status(201).json(newMessage);
 }

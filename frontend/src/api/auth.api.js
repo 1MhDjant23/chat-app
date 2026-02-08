@@ -1,4 +1,4 @@
-import {fetchAPI} from './fetchApi.js';
+import { fetchAPI } from './fetchApi.js';
 
 
 export  const   usersApi = () => {
