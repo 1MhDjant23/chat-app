@@ -2,7 +2,6 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
-// import  { authenticate } from './src/midllware/authentication.js';
 import authRoutes from './src/routes/auth.js';
 import userRoutes from './src/routes/usersRoutes.js';
 import  messagesRoutes from './src/routes/messagesRoutes.js'

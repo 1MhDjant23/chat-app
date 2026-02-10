@@ -9,6 +9,7 @@ export const setupSocket = (io) => {
     */
     
     io.on("connection", (socket) => {
+        
         // console.log("Socket connected:", socket.user.username);
         // console.log('Online-user', io.sockets.sockets.size);
         io.emit('total-user', io.sockets.sockets.size);

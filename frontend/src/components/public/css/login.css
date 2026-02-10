@@ -80,7 +80,7 @@ label {
     color: var(--muted);
     margin-bottom: 6px;
 }
-input[type="text"], input[type="password"] { padding: 11px 12px;
+input[type="email"], input[type="text"], input[type="password"] { padding: 11px 12px;
     border-radius: 8px;
     border: 1px solid #e6e9ef;
     background-color: #fff;

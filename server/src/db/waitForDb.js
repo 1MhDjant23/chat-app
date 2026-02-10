@@ -1,4 +1,4 @@
-import  { qwery }   from    './index.js';
+import  { qwery }   from    './pool.js';
 
 const   sleep  = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));

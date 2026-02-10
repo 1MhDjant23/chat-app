@@ -7,8 +7,10 @@ import "./public/css/login.css";
 import Logo from "./public/assets/logo.svg";
 
 export  function    Login({ setToken }) {
-    const   [username, setUsername] = useState('');
+    // const   [username, setUsername] = useState('');
     const   [password, setPassword] = useState('');
+    const   [email, setEmail] = useState('');
+
     const   [error, setError] = useState(null);
 
     const   location = useLocation();
@@ -30,16 +32,19 @@ export  function    Login({ setToken }) {
 
     const   handleSubmit = async (e) => {
         e.preventDefault();
-        if(username.trim() === '' || password.trim() === ''){
+        if(email.trim() === '' || password.trim() === ''){
             return ;
         }
         try {
             const   response = await loginApi({
-                username: username,
+                email: email,
                 password: password
             });
             localStorage.setItem('token', response.token);
             setToken(response.token);
+            setEmail('');
+            setPassword('');
+
             toast.success(`${response.message} | ${response.user.username}`)
 
         } catch (error) {
@@ -62,17 +67,17 @@ export  function    Login({ setToken }) {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className='form-group'>
-                        <label htmlFor='Username' >username</label>
+                        <label htmlFor='email' >email</label>
                         <div className='input-wrapper'>
                             <FiUser className='input-icon'/>
                             <input
-                                type='text'
-                                id='username'
-                                onChange={(e) => setUsername(e.target.value)}
-                                value={username}
-                                placeholder="enter username..."
+                                type='email'
+                                id='email'
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                placeholder="enter email..."
                                 required
-                                />
+                            />
                         </div>
                     </div>
                     <div className='form-group'>

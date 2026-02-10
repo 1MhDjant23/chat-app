@@ -9,6 +9,8 @@ import  './public/css/register.css';
 export  const   Register = () => {
     const   [username, setUsername] = useState('');
     const   [password, setPassword] = useState('');
+    const   [email, setEmail] = useState('');
+
     const   [error, setError] = useState(null);
 
     const   navigate = useNavigate();
@@ -29,6 +31,7 @@ export  const   Register = () => {
             const   response = await registerApi(
                 {
                     username: username,
+                    email: email,
                     password: password
                 }
             );
@@ -70,6 +73,20 @@ export  const   Register = () => {
                             />
                         </div>
                     </div>
+                    <div className="register-group">
+                        <label htmlFor="email">email</label>
+                        <div className="input-wrapper">
+                            <FiLock className="input-icon"/>
+                            <input
+                                type="email"
+                                id="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                placeholder="enter email"
+                                required    
+                            />
+                        </div>
+                    </div>
 
                     <div className="register-group">
                         <label htmlFor="password">Password</label>
@@ -79,10 +96,10 @@ export  const   Register = () => {
                                 id="password"
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}
-                                type="text"
-                                placeholder="enter username"
+                                type="password"
+                                placeholder="enter password"
                                 required
-                                />
+                            />
                         </div>
                     </div>
                     <button className="btn-primary" type="submit">Register</button>
