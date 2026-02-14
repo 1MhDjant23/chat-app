@@ -12,6 +12,6 @@ export const   pool = new Pool({
 });
 
 export  const   qwery = (text, params) => {
-    console.log("NEV:", process.env.PG_HOST);
+    // console.log("NEV:", process.env.PG_HOST);
     return pool.query(text, params);
 }

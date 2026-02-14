@@ -1,5 +1,5 @@
 import  {Router}    from 'express';
-import { authenticate } from '../midllware/authentication.js';
+import { authenticate } from '../midllware/authenticationMidllware.js';
 import { getMessages } from '../controllers/messagesController.js';
 
 

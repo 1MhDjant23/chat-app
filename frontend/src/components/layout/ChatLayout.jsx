@@ -3,8 +3,10 @@ import { UsersList } from "../users/UsersList.jsx";
 import { ChatWindow } from "../chat/ChatWindow.jsx";
 import  { socket }  from '../../socket/socket.js';
 import  "../public/css/chatLayout.css"
+import { ActivityBar } from "../sidebare/ActivityBar.jsx";
 
 export  const   ChatLayout = ({ setToken }) => {
+    const   [activity, setActivity] = useState(null);
     const   [userActive, setUserActive] = useState(null);
     
     useEffect(() => {
@@ -12,6 +14,7 @@ export  const   ChatLayout = ({ setToken }) => {
         socket.auth = { token: token };
         socket.connect();
         socket.on('connect', () => {
+            
             console.log('Websocket connection established success!');   
         })
     }, []);
@@ -27,6 +30,8 @@ export  const   ChatLayout = ({ setToken }) => {
 
     return (
         <div className="chat-layout-container">
+ 
+                <ActivityBar />
                 <UsersList setUserActive={setUserActive} setToken={setToken} />
             
                 {

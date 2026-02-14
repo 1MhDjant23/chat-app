@@ -7,6 +7,9 @@ import { Chat } from './components/Chat.jsx';
 import  './components/public/css/Variables.css';
 import { ChatLayout } from './components/layout/ChatLayout.jsx';
 import  { ToastContainer }  from  'react-toastify';
+// import { Profile } from './pages/Profile.jsx';
+// import { Freinds } from './pages/Freinds.jsx';
+import { ProfilePage } from './pages/ProfilePage.jsx';
 
 
 function App() {
@@ -48,6 +51,22 @@ function App() {
             </PublicRoutes>
           }
         />
+        <Route
+          path='/me'
+          element={
+            <PrivateRoute token={token}>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route
+          path='/freinds'
+          element={
+            <PrivateRoute token={token}>
+              <Freinds />
+            </PrivateRoute>
+          }
+        /> */}
         <Route
           path='*'
           element={

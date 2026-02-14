@@ -16,8 +16,9 @@ export  const   authenticate = (request, response, next)=> {
 
     try {
         const userPaylod = jwt.verify(token, process.env.SECRET_KEY);
-        request.user = userPaylod; // { id and username }
-        console.log('user authorized!');
+        console.log('payload', userPaylod);
+        request.user = userPaylod; // { id and username, iat }
+        console.log("to avatar");
         next();
     } catch (error) {
         console.log('Invalid token');

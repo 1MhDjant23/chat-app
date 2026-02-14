@@ -38,8 +38,8 @@ export  const   register = async (req, res) => {
 export const   loginUser = async (req, res) => {
 
     try {
-        
-        const   {email, password} = req.body;
+        console.log("body:", req.body);
+        const   { email, password } = req.body;
         
         if (!password || !email || email.trim() === '' || password.trim() === '')
             return res.status(400).json({error: 'All fields are required'});

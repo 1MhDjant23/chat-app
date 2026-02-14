@@ -67,13 +67,13 @@ export const UsersList = ({ setUserActive, setToken }) => {
                     ) : <span className="empty">No Users availlable</span>
                 }
             </section>
-            <div className="logout-section">
+            {/* <div className="logout-section">
                 <button
                     className="logout-btn"
                     onClick={handleLogout}>
                         <MdLogout className="logout-icon"/>
                 </button>
-            </div>
+            </div> */}
         </div >
     );
 }

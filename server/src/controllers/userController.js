@@ -1,4 +1,4 @@
-import { findUserByUsername, getUsersExceptMe } from '../db/dbAccessLayers/users.js';
+import { findUserById, findUserByUsername, getUsersExceptMe } from '../db/dbAccessLayers/users.js';
 
 export  const   getUsers = async (req, res) => {
     try {
@@ -14,14 +14,20 @@ export  const   getUsers = async (req, res) => {
 
 export const   getMe = async (req, res) => {
     try {
-        const   me = await findUserByUsername(res.user.username);
+        const   me = await findUserById(req.user.id);
         if(!me)
             return res.status(404).json({error: 'Not Found'});
 
-        res.json({
-            id: me.id,
-            username: me.username
-        });
+        res.json(
+            me
+        //     {
+        //     id: me.id,
+        //     username: me.username,
+        //     email: me.email,
+        //     avatar_url: me.avatar_url,
+        //     created_at: me.created_at
+        // }
+    );
     } catch (error) {
         res.status(500).json({error: error.message});
     }

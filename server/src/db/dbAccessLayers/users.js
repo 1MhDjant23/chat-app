@@ -17,7 +17,7 @@ export  const   findUserByUsername = async (username) => {
 
 export  const   findUserById = async (uid) => {
     const   res = await qwery(
-        "SELECT id, username, created_at FROM users WHERE id = $1",
+        "SELECT id, username, email, created_at, avatar_url FROM users WHERE id = $1",
         [uid]);
     return res.rows[0];
 }
