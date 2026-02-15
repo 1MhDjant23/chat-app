@@ -6,6 +6,8 @@ import authRoutes       from './src/routes/auth.js';
 import userRoutes       from './src/routes/usersRoutes.js';
 import messagesRoutes   from './src/routes/messagesRoutes.js';
 import profileRoutes    from './src/routes/profileRoutes.js';
+import freindsRoutes    from './src/routes/freindsRoutes.js';
+
 import { fileURLToPath }    from 'node:url';
 import path from 'node:path';
 const   app = express();
@@ -38,6 +40,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/messages', messagesRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/freinds', freindsRoutes)
 
 
 export default  app;
