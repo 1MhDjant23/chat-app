@@ -16,7 +16,6 @@ const   storage = multer.diskStorage({
     filename: (req, file, cb) => {
         const   extension_file = path.extname(file.originalname);
         const   fileName = `user-${req.user.id}-${Date.now()}${extension_file}`;
-        console.log('filename issss:', fileName);
         cb(null, fileName);
     }
 });
@@ -28,7 +27,6 @@ const   fileFilter = (req, file, cb) => {
     if (file.mimetype.startsWith('image/') || file.type.startsWith('image/')) {
         cb(null, true);
     }else {
-        console.log("at here is goooooooood -----------------------------------------------");
         cb(new Error('Only image files allowed'), false);
     }
 }

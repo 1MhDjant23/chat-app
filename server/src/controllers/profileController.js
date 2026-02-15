@@ -3,8 +3,8 @@ import  path                from 'node:path';
 import  { qwery }           from "../db/pool.js";
 import  fs                  from 'node:fs';
 
-// const   __fileName = fileURLToPath(import.meta.url);
-// const   __dirname = path.dirname(__fileName);
+const   __fileName = fileURLToPath(import.meta.url);
+const   __dirname = path.dirname(__fileName);
 
 const   UPLOADS_DIR = path.join('uploads', 'avatars');
 
@@ -18,11 +18,14 @@ export  const   updateAvatar = async (req, res) => {
 
         const   oldAvatarResult = await qwery('SELECT avatar_url FROM users WHERE id = $1', [req.user.id]);7
         const   oldAvatarPath = oldAvatarResult.rows[0].avatar_url;
-        console.log("OLD:", oldAvatarPath);
+
+        const   fullPathOnDisk = path.join(__dirname, '..', oldAvatarPath);
+
+        console.log("OLD:", fullPathOnDisk);
         if (oldAvatarPath) {
-            if(fs.existsSync(oldAvatarPath)) {
-                fs.unlinkSync(oldAvatarPath);
-                console.log('✅ Deleted old avatar:', oldAvatarPath);
+            if(fs.existsSync(fullPathOnDisk)) {
+                fs.unlinkSync(fullPathOnDisk);
+                console.log('✅ Deleted old avatar:', fullPathOnDisk);
             }
         }
 
