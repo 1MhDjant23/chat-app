@@ -25,3 +25,11 @@ export  const   userApi = () => {
         token: localStorage.getItem('token')
     });
 }
+
+export  const   infoApi = (info) => {
+    return fetchAPI('/api/profile/info', {
+        method: 'POST',
+        body: info,
+        token: localStorage.getItem('token')
+    });
+}

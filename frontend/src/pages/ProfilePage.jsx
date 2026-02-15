@@ -10,8 +10,9 @@ export const ProfilePage = () => {
     const   [error, setError] = useState(null);
     const   [loading, setLoading] = useState(false);
     const   [user, setUser] = useState(null);
-    const   [edit, setEdit] = useState(false);
+    const   [isEdit, setIsEdit] = useState(false);
 
+    // const   isButtonDisabled = isEdit;
     useEffect(() => {
         const   fetchData = async () => {
             setError(null);
@@ -31,7 +32,7 @@ export const ProfilePage = () => {
 
         }
         fetchData();
-    }, [])
+    }, []);
     if(!loading)
         return <div>User Loading...</div>
     if (error)
@@ -42,18 +43,20 @@ export const ProfilePage = () => {
             {console.log('USER is:', user)}
             <ActivityBar />
             <div className="main-content">
-                <button 
+                <button
+                    disabled={isEdit}
                     className='edit-button'
                     onClick={(e) => {
-                    e.preventDefault();
-                    // onEdit(true);
-                }
+                        e.preventDefault();
+                        setIsEdit(true);
+                    }
+                    
                 } >
                     Edit Profile
                 </button>
                 <div className="profile-layout">
-                    <ProfileAvatar user={user} onUpdate={setUser} onEdit={setEdit} />
-                    {/* <ProfileInfo user={user} onUpdate={setUser} isEdit={edit} /> */}
+                    <ProfileAvatar user={user} onUpdate={setUser}/>
+                    <ProfileInfo user={user} onUpdate={setUser} isEdit={isEdit} setIsEdit={setIsEdit} />
                     {/* <ProfileInfo /> */}
                     {/* <About /> */}
                 </div>

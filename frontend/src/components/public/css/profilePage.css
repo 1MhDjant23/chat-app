@@ -4,15 +4,6 @@
     height: 100vh;
 }
 
-/* .main-content {
-    flex: 1; 
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-    background-color: var(--bg-element);
-    overflow-y: auto;
-} */
-
 .main-content {
     flex: 1;
     display: flex;
@@ -64,7 +55,12 @@
 .edit-button:hover {
     background-color: var(--primary-glow);
 }
-
+.edit-button:disabled:hover {
+    /* opacity: 0.5; */
+    cursor: not-allowed;
+    background-color: var(--danger);
+    
+}
 
 .avatar-wrapper {
     width: 160px;
@@ -94,4 +90,88 @@
 
 .upload-button:hover {
     background-color: var(--primary-hover);
+}
+
+/* PROFILE INFO COMPONENT */
+
+.profile-info-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--bubble-other);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* transition: all 0.2s ease; */
+
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+}
+
+.profile-info p {
+    margin: 0;
+    color: var(--text-main);
+}
+
+.profile-info-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-info-edit label {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+
+.profile-info-edit input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.profile-info-edit input:focus {
+    border-color: var(--primary);
+}
+
+.actions-edit {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.actions-edit button[type="submit"] {
+    background-color: var(--primary);
+    color: var(--text-main);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.actions-edit button[type="submit"]:hover {
+    background-color: var(--primary-hover);
+}
+
+.actions-edit button[type="button"] {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: 0.2s ease;
+}
+
+.actions-edit button[type="button"]:hover {
+    background-color: var(--primary-glow);
 }

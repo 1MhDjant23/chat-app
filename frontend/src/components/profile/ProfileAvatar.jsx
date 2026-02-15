@@ -3,7 +3,7 @@ import { avatarApi } from '../../api/profileApi';
 import  avatar    from '../public/assets/avatar.png';
 import  { BASE_URL }    from    '../../api/fetchApi.js';
 
-export  const   ProfileAvatar = ({ user, onUpdate, onEdit }) => {
+export  const   ProfileAvatar = ({ user, onUpdate }) => {
     const   [error, setError] = useState(null);
     const   [loading, setLoading] = useState(false);
 
@@ -26,7 +26,6 @@ export  const   ProfileAvatar = ({ user, onUpdate, onEdit }) => {
         try {
             setLoading(true);
             setError(null);
-            // console.log(`FORM DATA ${newFormData.ke}`);
            const   res = await avatarApi(
             {
                 method: 'POST',
@@ -35,7 +34,6 @@ export  const   ProfileAvatar = ({ user, onUpdate, onEdit }) => {
             if (!res.ok)
                 throw new Error('Upload failed');
             onUpdate(res.user);
-            // console.log("{{{{{{{{{{" ,res.user);
         } catch (error) {
             console.log(error);
             setError(error.message );

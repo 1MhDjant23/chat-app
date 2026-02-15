@@ -1,61 +1,74 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState }  from 'react';
+import { infoApi }              from '../../api/profileApi';
+import { toast }                from 'react-toastify';
 
-export const  ProfileInfo = ({ user, onUpdate, isEdit }) => {
+export const  ProfileInfo = ({ user, onUpdate, isEdit, setIsEdit }) => {
     const   [username, setUsername] = useState('');
     const   [email, setEmail] = useState('');
-    // const   [phone, setPhone] = useState('');
 
-    const   editUsername = () => {
-        if(username.trim() === '')
+    const   handleSubmit = async (e) => {
+        e.preventDefault();
+        if(username.trim() === '' || email.trim() === '')
             return ;
-        
-    }
-    const   editEmail = () => {
-
+        try {
+            const   result = await infoApi({ username: username, email: email });
+            onUpdate(result.user);
+            toast.success(result.message);
+            setIsEdit(false);
+        } catch (error) {
+            console.log('Error info:', error);
+            toast.error(error);
+        }
     }
 
     useEffect(() => {
-
-    }, [])
+        if (user) {
+            setEmail(user.email);
+            setUsername(user.username);
+        }
+    }, [user])
     return (
-        <div className="profile-av,atar-container">
+       <div className="profile-info-container">
             {
-                user ? 
-                (<div>
-                    <p>ID: {user.id}</p>
-                    <label htmlFor="username">username: {user.username}</label>
-                        isEdit ? (
-                        <input
-                            id='username'
-                            value={username}
-                            type="text"
-                            onChange={e => setUsername(e.target.value)}
-                        />
-                        <button onClick={editUsername}>edit</button>
-                    ) : ('')
-                    {/* <p>username: {user.username}</p> */}
-                    <label htmlFor="email">email: {user.email}</label>
-                        isEdit ? (
-                        <input
-                            id='email'
-                            value={email}
-                            type="email"
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                        <button onClick={editEmail}>edit</button>
-                    ) : ('')
-                    {/* <p>email: {user.email}</p> */}
-                    {/* <label htmlFor="phone">phone: {user.phone}</label>
-                    <input
-                        id='phone'
-                        value={phone}
-                        type="phone"
-                        onChange={e => setPhone(e.target.value)}
+                !isEdit ? (
+                <div className='profile-info'>
+
+                    <p><strong>username:</strong> {username}</p>
+                    <p><strong>email:</strong> {email}</p>
+                    <p><strong>Phone:</strong> +212 *******</p>
+                    <p><strong>Created_at:</strong> {new Date(user.created_at).toLocaleDateString()}</p>
+
+                </div>) :
+                (
+                <form className='profile-info-edit' onSubmit={handleSubmit}>
+
+                    <label htmlFor="username">Username</label>
+                    <input 
+                        id='username'
+                        value={username}
+                        type="text" 
+                        onChange={e => setUsername(e.target.value)} 
                     />
-                    <button onClick={editPhone}>edit</button> */}
-                    {/* <p>phone: +212 ***********</p> */}
-                </div>) : <p>error fetching user</p>
+
+                    <label htmlFor="email">Email</label>
+                    <input
+                        value={email}
+                        id='email'
+                        onChange={e => setEmail(e.target.value)}
+                        type="email"
+                    />
+                    <div className="actions-edit">
+                        <button type='submit'>Save</button>
+
+                        <button 
+                            type='button' 
+                            onClick={e => setIsEdit(false)}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </form>)
             }
-        </div>
+       </div>
     );
 }
