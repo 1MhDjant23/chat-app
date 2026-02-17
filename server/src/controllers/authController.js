@@ -39,6 +39,9 @@ export const   loginUser = async (req, res) => {
 
     try {
         console.log("body:", req.body);
+        if(!req.body)
+            return res.status(400).json({error: 'All fields are required'});
+
         const   { email, password } = req.body;
         
         if (!password || !email || email.trim() === '' || password.trim() === '')

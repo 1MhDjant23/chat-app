@@ -35,7 +35,6 @@ export  const   updateAvatar = async (req, res) => {
         );
         const   userUpdated = result.rows[0];
 
-        // console.log("0000000::", userUpdated);
         res.json({
             ok: true,
             message: 'Avatar uploaded successfully',
