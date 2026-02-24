@@ -12,24 +12,3 @@ export const   getMessages = async (req, res) => {
         res.status(500).json({error: error.message});
     }
 }
-
-
-// export  const   sendMessage = async (req, res) => {
-//     const   userAId = req.user.id;
-//     const   { otherId, content } = req.body;
-
-//     console.log("In send message:", otherId, " | ", content);
-//     try {
-//         if (!otherId || !content || otherId.trim() === '' || content.trim() === '' || !isNaN(otherId)) {
-//             return res.status(401).json({error: 'Invalid'});
-//         }
-    
-//         const   newMessage = await saveMessage(userAId, otherId, content);
-
-//         return res.status(201).json(newMessage);
-        
-//     } catch (error) {
-//         console.log('error save message:', error);
-//         res.status(500).json({error: error.message});
-//     }
-// }

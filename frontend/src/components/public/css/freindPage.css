@@ -1,0 +1,248 @@
+.freinds-layout-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--bg-main);
+    /* discord background */
+    color: var(--text-main);
+    font-family: var(--font-family);
+}
+
+.freinds-header {
+    height: 60px;
+    background-color: var(--bg-sidebar);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.freinds-header ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.freinds-header li {
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.freinds-header li:hover {
+    background-color: var(--bg-element);
+    color: var(--text-main);
+}
+
+
+.friends-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/**/
+
+.freind-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.freind-list-container h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background-color: var(--bg-sidebar);
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.friend-item:hover {
+    background-color: var(--bg-element);
+    cursor: pointer;
+    /* added generic pointer for newly wrapped navigation */
+}
+
+
+.friend-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
+    /* discord blurple */
+    border-radius: 50%;
+    background-position: center;
+}
+
+.friend-name {
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* Pending Requests Layout */
+.pending-requests {
+    max-width: 600px;
+}
+
+.pending-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.friend-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pending-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.accept-btn,
+.reject-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.accept-btn {
+    background-color: var(--bg-element);
+    /* Discord dark background */
+}
+
+.accept-btn:hover {
+    background-color: var(--online);
+    /* Discord explicit success green */
+}
+
+.reject-btn {
+    background-color: var(--bg-element);
+}
+
+.reject-btn:hover {
+    background-color: #ed4245;
+    /* Discord explicit destructive red */
+}
+
+/* For add freind button */
+
+.add-friend-container {
+    padding: 20px;
+    background-color: var(--bg-main);
+    /* Matches your main bg */
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+.add-friend-container h1 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.add-friend-description {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.add-friend-form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.add-friend-input {
+    flex: 1;
+    padding: 12px;
+    background-color: var(--border);
+    /* Darker input box */
+    border: none;
+    border-radius: 4px;
+    color: var(--text-main);
+    font-size: 16px;
+    outline: none;
+    transition: background-color 0.2s ease;
+}
+
+.add-friend-input:focus {
+    background-color: var(--bg-element);
+}
+
+.add-friend-btn {
+    padding: 12px 20px;
+    background-color: var(--primary);
+    /* Discord blurple */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-friend-btn:hover {
+    background-color: var(--primary-hover);
+    /* Slightly darker blurple on hover */
+}
+
+.status-message {
+    margin-top: 15px;
+    font-size: 13px;
+    color: var(--online);
+    /* Discord success green color */
+}
+
+/* New Layout Wrapper for the main content alongside ActivityBar */
+.freinds-main-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .freinds-layout-container {
+        flex-direction: row;
+    }
+
+    .freinds-main-content {
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .pending-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .freinds-header ul {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}

@@ -43,7 +43,6 @@ export  const   updateAvatar = async (req, res) => {
         
     } catch (error) {
         console.log("we can't goo here");
-        console.log('Upload failled');
         res.status(500).json({
             error: error.message
         });

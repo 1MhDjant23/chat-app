@@ -1,43 +1,46 @@
 :root {
     /* Backgrounds */
-    --bg-main: #0f172a;
-    --bg-sidebar: #1e293b;
-    --bg-element: #334155;
-    --bg-chat: #0f172a;
-    
+    --bg-main: #313338;
+    --bg-sidebar: #2b2d31;
+    --bg-element: #383a40;
+    --bg-chat: #313338;
+
     /* Text */
-    --text-main: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    
+    --text-main: #dbdee1;
+    --text-secondary: #949ba4;
+    --text-muted: #80848e;
+
     /* Brand */
-    --primary: #6366f1;
-    --primary-hover: #4f46e5;
-    --primary-glow: rgba(99, 102, 241, 0.3);
-    
+    --primary: #5865F2;
+    /* blurple */
+    --primary-hover: #4752C4;
+    --primary-glow: rgba(88, 101, 242, 0.3);
+
     /* Borders */
-    --border: #334155;
-    
+    --border: #1e1f22;
+
     /* Chat Bubbles */
-    --bubble-me: #4f46e5;
+    --bubble-me: #5865F2;
     --bubble-me-text: #ffffff;
-    --bubble-other: #1e293b;
-    --bubble-other-text: #f1f5f9;
-    
+    --bubble-other: #2b2d31;
+    --bubble-other-text: #dbdee1;
+
     /* Status */
-    --online: #22c55e;
-    --danger: rgb(197, 34, 34);
-    
+    --online: #23a559;
+    --danger: #da373c;
+
     /* Typing Indicator */
-    --bg-dots: #6b7280;
-    --bg-typing-indic: #1f2933;
-    --typing-indic: #9ca3af;
+    --bg-dots: #b5bac1;
+    --bg-typing-indic: #2b2d31;
+    --typing-indic: #b5bac1;
 
     /* Typography */
     --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-html, body, #root {
+html,
+body,
+#root {
     height: 100%;
     font-family: var(--font-family);
     background-color: var(--bg-main);

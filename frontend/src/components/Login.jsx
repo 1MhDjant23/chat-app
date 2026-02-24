@@ -1,19 +1,19 @@
 import { Link, useLocation } from 'react-router-dom';
-import  {loginApi} from '../api/auth.api.js';
+import { loginApi } from '../api/auth.api.js';
 import { useEffect, useState } from "react";
 import { FiUser, FiLock } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import "./public/css/login.css";
 import Logo from "./public/assets/logo.svg";
 
-export  function    Login({ setToken }) {
+export function Login({ setToken }) {
     // const   [username, setUsername] = useState('');
-    const   [password, setPassword] = useState('');
-    const   [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
 
-    const   [error, setError] = useState(null);
+    const [error, setError] = useState(null);
 
-    const   location = useLocation();
+    const location = useLocation();
 
     useEffect(() => {
         if (location.state?.message) {
@@ -23,20 +23,20 @@ export  function    Login({ setToken }) {
     }, [location])
 
     useEffect(() => {
-        if(error) {
+        if (error) {
             toast.error(error.message);
             setError(null);
         }
 
     }, [error])
 
-    const   handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if(email.trim() === '' || password.trim() === ''){
-            return ;
+        if (email.trim() === '' || password.trim() === '') {
+            return;
         }
         try {
-            const   response = await loginApi({
+            const response = await loginApi({
                 email: email,
                 password: password
             });
@@ -61,15 +61,15 @@ export  function    Login({ setToken }) {
                         <img src={Logo} alt="App logo" />
                         <h1>Sign in</h1>
                     </div>
-                        <div className='welcome-title'>
-                            Welcome back - please sign in to your account
-                        </div>
+                    <div className='welcome-title'>
+                        Welcome back - please sign in to your account
+                    </div>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <label htmlFor='email' >email</label>
                         <div className='input-wrapper'>
-                            <FiUser className='input-icon'/>
+                            <FiUser className='input-icon' />
                             <input
                                 type='email'
                                 id='email'
@@ -83,15 +83,15 @@ export  function    Login({ setToken }) {
                     <div className='form-group'>
                         <label htmlFor="Password">password</label>
                         <div className="input-wrapper">
-                        <FiLock className='input-icon'/>
-                        <input
-                            type='password'
-                            id='password'
-                            name='password'
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                            placeholder="enter password..."
-                            required
+                            <FiLock className='input-icon' />
+                            <input
+                                type='password'
+                                id='password'
+                                name='password'
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                placeholder="enter password..."
+                                required
                             />
                         </div>
                     </div>

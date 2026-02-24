@@ -57,8 +57,6 @@ export const ProfilePage = () => {
                 <div className="profile-layout">
                     <ProfileAvatar user={user} onUpdate={setUser}/>
                     <ProfileInfo user={user} onUpdate={setUser} isEdit={isEdit} setIsEdit={setIsEdit} />
-                    {/* <ProfileInfo /> */}
-                    {/* <About /> */}
                 </div>
             </div>
 

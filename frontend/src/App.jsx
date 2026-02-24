@@ -1,15 +1,15 @@
-import  { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useState } from 'react'
-import {Login} from './components/Login.jsx';
-import  {Register} from './components/Register.jsx';
+import { Login } from './components/Login.jsx';
+import { Register } from './components/Register.jsx';
 import { PrivateRoute, PublicRoutes } from './routes/ProtectRoutes.jsx';
 import { Chat } from './components/Chat.jsx';
-import  './components/public/css/Variables.css';
+import './components/public/css/Variables.css';
 import { ChatLayout } from './components/layout/ChatLayout.jsx';
-import  { ToastContainer }  from  'react-toastify';
-// import { Profile } from './pages/Profile.jsx';
-// import { Freinds } from './pages/Freinds.jsx';
+import { ToastContainer } from 'react-toastify';
 import { ProfilePage } from './pages/ProfilePage.jsx';
+import { FriendProfile } from './pages/FriendProfile.jsx';
+import { FreindsLayout } from './components/layout/FreindsLayout.jsx';
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
               <ChatLayout setToken={setToken} />
             </PrivateRoute>
           }
-          />
+        />
         <Route
           path='/chat/:userId'
           element={
@@ -34,7 +34,7 @@ function App() {
               <Chat />
             </PrivateRoute>
           }
-          />
+        />
         <Route
           path='/login'
           element={
@@ -47,7 +47,7 @@ function App() {
           path='/register'
           element={
             <PublicRoutes token={token}>
-              <Register/>
+              <Register />
             </PublicRoutes>
           }
         />
@@ -59,22 +59,30 @@ function App() {
             </PrivateRoute>
           }
         />
-        {/* <Route
+        <Route
+          path='/profile/:userId'
+          element={
+            <PrivateRoute token={token}>
+              <FriendProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path='/freinds'
           element={
             <PrivateRoute token={token}>
-              <Freinds />
+              <FreindsLayout />
             </PrivateRoute>
           }
-        /> */}
+        />
         <Route
           path='*'
           element={
-            <Navigate to={ token ? '/' : '/login' } />
+            <Navigate to={token ? '/' : '/login'} />
           }
         />
       </Routes>
-      <ToastContainer/>
+      <ToastContainer />
     </BrowserRouter>
   )
 }

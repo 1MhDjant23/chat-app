@@ -28,7 +28,6 @@ export  const   register = async (req, res) => {
             return res.status(409).json({
                 error: 'Email already in use'
             })
-            // throw error;
         }
         res.status(500).json({error: error.message});
     }

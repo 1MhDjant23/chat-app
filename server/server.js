@@ -1,19 +1,19 @@
-import  { Server }          from    'socket.io';
-import  { setupSocket }     from "./src/socket/socket.js";
-import  http                from 'node:http';
-import  app                 from "./app.js";
-import  dotenv              from 'dotenv';
-import  { waitForDb }       from './src/db/waitForDb.js';
-import  { runMigration }    from './src/db/migration.js';
+import { Server } from 'socket.io';
+import { setupSocket } from "./src/socket/socket.js";
+import http from 'node:http';
+import app from "./app.js";
+import dotenv from 'dotenv';
+import { waitForDb } from './src/db/waitForDb.js';
+import { runMigration } from './src/db/migration.js';
 
 dotenv.config();
-const   PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-function    startServer() {
-    const   server = http.createServer(app);
+function startServer() {
+    const server = http.createServer(app);
     server.on('error', (err) => console.log('server error:', err));
 
-    const   io = new Server(server, {
+    const io = new Server(server, {
         cors: {
             origin: '*'
         }
@@ -22,7 +22,7 @@ function    startServer() {
     server.listen(PORT, () => console.log(`server running on Port: ${PORT}`));
 }
 
-const   boot = async () => {
+const boot = async () => {
     try {
         await waitForDb({});
         await runMigration();

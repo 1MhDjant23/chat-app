@@ -15,8 +15,6 @@ const   app = express();
 const   __fileName = fileURLToPath(import.meta.url);
 const   __dirname = path.dirname(__fileName);
 const   UPLOADS_DIR = path.join(__dirname, 'src', 'uploads');
-// console.log("DIIIIIIR:", UPLOADS_DIR);
-
 
 //  Configure Helmet to allow cross-origin resources
 app.use(helmet({

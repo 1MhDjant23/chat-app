@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { usersApi } from "../../api/auth.api.js";
-import  { MdLogout }  from    'react-icons/md';
+import { freindsListAPI } from "../../api/freindsApi.js";
+import { MdLogout } from 'react-icons/md';
 import '../public/css/usersList.css';
-import  { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const UsersList = ({ setUserActive, setToken }) => {
 
@@ -10,9 +10,9 @@ export const UsersList = ({ setUserActive, setToken }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    let   navigate = useNavigate();
+    let navigate = useNavigate();
 
-    const   handleLogout = () => {
+    const handleLogout = () => {
         localStorage.removeItem('token');
         setToken(null);
         navigate('/login');
@@ -23,8 +23,9 @@ export const UsersList = ({ setUserActive, setToken }) => {
             setError(null);
             setLoading(true);
             try {
-                const allUsers = await usersApi();
-                setUsers(allUsers);
+                const results = await freindsListAPI();
+                // Since results returns an object: { message: "...", freindList: [...] }
+                setUsers(results.freindList);
             } catch (error) {
                 setError(error || 'Something went wrong.');
                 console.log('fetch users error:', error);
@@ -58,7 +59,9 @@ export const UsersList = ({ setUserActive, setToken }) => {
                                         </div>
                                         <div className="user-info">
                                             <span className="user-name">{u.username}</span>
-                                            <span className="user-status">Online</span>
+                                            <span className={`user-status ${u.status === 'online' ? 'status-online' : 'status-offline'}`}>
+                                                {u.status || 'offline'}
+                                            </span>
                                         </div>
                                     </li>
                                 ))
